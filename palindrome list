@@ -1,0 +1,66 @@
+input : 1->2->2->1    input : 1->2->1     input : 1->3->2->1->2
+output : true         output: true        output : false 
+[WHEN EVER SUCH TYPE OF QUESTION IS ASKED IN INTERVIEW START WITH A BRUTE FORCE  SOLUTION ]
+1ST APPROCH :
+CONSIDER AN ARRAY OR A LIST IN WICH THEY CAN STORE THE VALUE MAKE AN ITRATION IN THE LIST COMAPRE THE VALUES AND WE GET OUR DESIRED OUTPUT 
+TIME COMPLEXITY O(2n) AND SPACE COMPLEXITY 0(n)
+AS WE ARE TAKING EXTRA SPACE TO STORE THE VALUES THE INTERVIEWER WON'T LIKE THIS SOLUTION 
+
+2ND APPROCH :
+ EXAMPLE : 1 -> 2 ->  3 -> 4 -> 4 -> 3 -> 2 -> 1 -> NULL
+ FIRST LET'S FIND OUT THE MIDDLE ELEMENT IN THE LIST SO LET'S TAKE A SLOW POINTER AND A FAST POINTER. 
+ we would traverse our slow pointer by 1 step and our fast pointer by 2 step 
+ 1 -> 2-> 3-> 4-> 4 -> 3 -> 2-> 1 -> null
+              ^             ^   
+              s             f
+so we got our middle element that is 4 so what we would do ?
+we would reverse the slow next list that would be 1->2->3->4-> null
+and then we would comapre it and say are the equal if yes then print true for me else false 
+here the TIME COMPLEXITY IS O(n)[SINGLE TRAVERSAL] SPACE COMPLEXITYO(n)[NOT TAKEN ANY EXTRA SPACE]
+
+// HERE IS THE JAVA CODE 
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if (head==null || head.next==null)
+            return true;
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast.next!= null && fast.next.next!=null){
+            slow = slow.next;
+            fast= fast.next.next;
+        }
+         slow.next = reverseList(slow.next);
+        slow=slow.next;
+        
+        while (slow!= null){
+            if(head.val!= slow.val)
+                return false;
+            head = head.next;
+            slow = slow.next;
+        }
+         return true;
+     }
+    ListNode reverseList(ListNode head){
+        ListNode pre= null;
+        ListNode next = null;
+        while(head!=null){
+            next= head.next;
+            head.next=pre;
+            pre= head;
+            head = next;
+            
+        }
+         return pre;
+    } 
+}
