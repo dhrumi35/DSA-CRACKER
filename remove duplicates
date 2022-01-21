@@ -1,0 +1,44 @@
+https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+Input : 1-> 1-> 2
+output: 1-> 2
+[* WHEN EVER SUCH TYPE OF QUESTION IS ASKED IN THE INTERVIEW THE 1ST APPROCH SHOULD BE BRUTE FORCE SOLUTION *]
+
+# BRUTE FORCE SOLUTION : HASHSET/VECTORS
+ we would creat an array or a vector or a hashset to store the value in it we would tell them if the number are duplictes 
+ don't add the number in the list 
+ then print your hashset,vector or an array 
+ the TIME COMPLEXITY O(n) AND SPACE COMPLEXITY O(n)
+ 
+ THE INTERVIEWER WON'T LIKE THIS SOLUTION AS WE HAVE USED THE EXTRA SPACE 
+ 
+ # OPTIMAL SOLUTION 
+ we have take a two pointers  (i and j)
+ 1-> 1-> 2-> 3-> 3-> 5->null
+ our i an j pointer would be at null 
+ 1st we would traverse j and compare it that is my next element equal to the pre element then increment the 
+ i pointer next to the next value 
+ thus we get are resultant output 
+ TIME COMPLEXITY O(n) and SPACE COMPLEXITY O(1)
+ 
+ # java code 
+ class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+    //edge casese
+       if(head==null || head.next==null) return head;
+       //this is our i and j pointer as p is for previous element and curr is for the current element 
+		ListNode p = head;
+		ListNode curr = p.next;
+    // we would run a loop till curr dose not reaches null
+		while(curr!=null) {
+			if(curr.val!=p.val) {
+				p.next=curr;
+				p=curr;
+			}
+      // we would break the coonection and shif to other node 
+			curr=curr.next;
+		}
+		p.next=curr;
+		return head;
+        
+    }
+}
